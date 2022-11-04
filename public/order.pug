@@ -1,0 +1,29 @@
+html 
+    body 
+        if client.logIn
+            h3=`Hello, ${client.username}!`
+            a(href='/') |-- Home --|
+            a(href='/logOut') |-- Log Out --|
+            a(href=`/profile/${client.username}`) |-- My Profile --|
+            a(href='/orders') |-- Order --|
+        else
+            a(href='/') |-- Home --|
+            a(href='/logIn') |-- Log In --|
+            a(href='/register') |-- Register as New User --|
+        h3=`Username: ${username}`
+        h3=`Order ID: ${parseInt(id)+1}`
+        h3=`Restaurant Name: ${data.restaurantName}`
+        h4=`Restaurant ID: ${data.restaurantID}`
+        p=`Subtotal: ${data.subtotal.toFixed(2)}`
+        p=`Total: ${data.total.toFixed(2)}` 
+        p=`Fee: ${data.fee.toFixed(2)}`
+        p=`Tax: ${data.tax.toFixed(2)}`
+        lable Order Detail: 
+        ul 
+            each item in data.order 
+                li=item.name+' * '+item.quantity
+        br
+        if id>0
+            a(href=`/order/${username}/${parseInt(id)-1}`) |-- Previous Order --|
+        if id<max-1
+            a(href=`/order/${username}/${parseInt(id)+1}`) |-- Next Order --|

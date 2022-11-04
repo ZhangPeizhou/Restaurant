@@ -1,0 +1,47 @@
+html 
+    body 
+        script(src='functions.js')
+        if(length!=2)
+            if(session.logIn)
+                h2=`Hello, ${session.username}!`
+                a(href='/logOut') |-- Log Out --|
+                a(href=`/profile/${session.username}`) |-- My Profile --|
+                a(href='/orders') |-- Order --|
+                lable Search User: 
+                input#search(type='text', size='20')
+                button(onclick='search()') Search 
+                br
+            else 
+                if(session.username=='ERROR404')
+                    h2(style='color: red') Incorrect Username or Password 
+                    a(href='/logIn') |-- Log In --|
+                    a(href='/register') |-- Register as New User --|
+                    lable Search User: 
+                    input#search(type='text', size='20')
+                    button(onclick='search()') Search 
+                    br
+                else if(session.username=='')
+                    h2 You are Not loged in yet!
+                    a(href='/logIn') |-- Log In --|
+                    a(href='/register') |-- Register as New User --|
+                    lable Search User: 
+                    input#search(type='text', size='20')
+                    button(onclick='search()') Search 
+                    br
+                else if(session.username=='Token')
+                    h2(style='color: red') Username is Token, Please use another Username.
+                    a(href='/logIn') |-- Log In --|
+                    a(href='/register') |-- Register as New User --|
+                    lable Search User: 
+                    input#search(type='text', size='20')
+                    button(onclick='search()') Search 
+                    br
+        else
+            h2 You are Not loged in yet!
+            a(href='/logIn') |-- Log In --|
+            a(href='/register') |-- Register as New User --|
+            lable Search User: 
+            input#search(type='text', size='20')
+            button(onclick='search()') Search 
+            br
+            

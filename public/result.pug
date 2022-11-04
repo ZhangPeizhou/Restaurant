@@ -1,0 +1,32 @@
+html 
+    body 
+        script(src='functions.js')
+        -var avaliable=0
+        if client.logIn
+            h3=`Hello, ${client.username}!`
+            a(href='/') |-- Home --|
+            a(href='/logOut') |-- Log Out --|
+            a(href=`/profile/${client.username}`) |-- My Profile --|
+            a(href='/orders') |-- Order --|
+            lable Search User: 
+            input#search(type='text', size='20')
+            button(onclick='search()') Search 
+            br
+        else
+            a(href='/') |-- Home --|
+            a(href='/logIn') |-- Log In --|
+            a(href='/register') |-- Register as New User --|
+            lable Search User: 
+            input#search(type='text', size='20')
+            button(onclick='search()') Search 
+            br
+        if data.length==0
+            h1 No Matches
+        else 
+            each user in data 
+                if client.logIn==true||user.privacy==false 
+                    -avaliable+=1
+                    a(href=`/profile/${user.username}`)=user.username 
+                    br
+        if data.length>0&&avaliable==0
+            h1 All result profiles are private.

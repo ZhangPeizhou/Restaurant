@@ -1,0 +1,50 @@
+html 
+    body 
+    script(src='functions.js')
+    if client.logIn
+        h3=`Hello, ${client.username}!`
+        a(href='/') |-- Home --|
+        a(href='/logOut') |-- Log Out --|
+        a(href=`/profile/${client.username}`) |-- My Profile --|
+        a(href='/orders') |-- Order --|
+        lable Search User: 
+        input#search(type='text', size='20')
+        button(onclick='search()') Search 
+        br
+    else
+        a(href='/') |-- Home --|
+        a(href='/logIn') |-- Log In --|
+        a(href='/register') |-- Register as New User --|
+        a(href='/orders') |-- Order --|
+        lable Search User: 
+        input#search(type='text', size='20')
+        button(onclick='search()') Search 
+        br
+    -var avaliable;
+    if data.username==client.username 
+        h2 This is your own profile 
+        h3=`Privacy: ${client.privacy}`
+        -avaliable=true
+        if client.privacy==false
+            button(onclick=`changePrivacy('${client.username}')`) Change Privacy to True
+        else 
+            button(onclick=`changePrivacy('${client.username}')`) Change Privacy to False
+        br
+    else 
+        if client.logIn
+            -avaliable=true
+        else
+            if data.privacy==false 
+                -avaliable=true
+            else 
+                -avaliable=false
+    if avaliable==true
+        h3=`Username: ${data.username}`
+        h4=`History Orders: `
+        ul
+            if data.history.length!=0
+                each historyOrder in data.history
+                    li
+                        a(href=`/order/${data.username}/${historyOrder.id}`)=`Order ${parseInt(historyOrder.id)+1}`
+    else
+        h3 You are only able to see private profile after log in
